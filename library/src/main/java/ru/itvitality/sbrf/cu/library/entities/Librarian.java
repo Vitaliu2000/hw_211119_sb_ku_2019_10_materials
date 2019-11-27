@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "movement")
+@Table(name = "librarian")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn()
-public class Movement {
+public class Librarian {
 
-    @OneToMany(targetEntity = Holder.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //@JoinColumn(name = "id")
-    private List<Holder> holders;
+    @OneToMany(targetEntity = Movement.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "name")
+    private List<Movement> movements;
 
     @Id
     @GeneratedValue( strategy = GenerationType.SEQUENCE)
@@ -24,7 +24,7 @@ public class Movement {
         return id;
     }
 
-    public Movement setId(Long id) {
+    public Librarian setId(Long id) {
         this.id = id;
         return this;
     }
@@ -33,7 +33,7 @@ public class Movement {
         return name;
     }
 
-    public Movement setName(String name) {
+    public Librarian setName(String name) {
         this.name = name;
         return this;
     }

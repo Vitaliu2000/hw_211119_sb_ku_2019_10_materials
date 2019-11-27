@@ -7,7 +7,7 @@ import java.util.List;
 @Table(name = "book")
 public class Book {
     @Id
-    @GeneratedValue( strategy = GenerationType.SEQUENCE)
+    @GeneratedValue( strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "isbn", nullable = false)
@@ -23,7 +23,24 @@ public class Book {
     private Integer deleted;
 
     @OneToMany(targetEntity = Movement.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private List<Movement> movements;
+
+    public Book(Long id, String isbn, String name, String author, Integer deleted) {
+        this.id = id;
+        this.isbn = isbn;
+        this.name = name;
+        this.author = author;
+        this.deleted = deleted;
+    }
+
+    public Book() {
+    }
+
+    @Override
+    public String toString() {
+        return "Book: " + this.id + ", " + this.isbn + ", " + this.author;
+    }
 
     public Long getId() {
         return id;
